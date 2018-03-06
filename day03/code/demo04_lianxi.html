@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="js/vue.js"></script>
+  <title>Title</title>
+</head>
+<body>
+<div id="example">
+  <my-chatroom></my-chatroom>
+</div>
+
+<script>
+
+  Vue.component('my-user',{
+    props:['uname'],
+    data:function(){
+      return {userInput:''}
+    },
+    methods:{
+      sendToFather:function(){
+          //触发事件
+        var msg =
+          this.uname+":"+this.userInput;
+          this.$emit('sendEvent',msg);
+          this.userInput = "";
+      }
+    },
+    template:`
+      <div>
+        {{uname}}:
+        <input
+         type="text"
+         v-model="userInput"
+         placeholder="plz input"/>
+        <button @click="sendToFather">
+          发送
+        </button>
+      </div>
+    `
+  })
+
+  Vue.component('my-chatroom',{
+    data:function(){
+      return {
+        msgList:[]
+      }
+    },
+    methods:{
+      rcvMsg:function(msg){
+        console.log(msg);
+        this.msgList.push(msg);
+      }
+    },
+    template:`
+      <div>
+        <ul>
+            <li v-for="tmp in msgList">
+              {{tmp}}
+            </li>
+        </ul>
+
+        <my-user
+        @sendEvent="rcvMsg"
+        uname="lucy"></my-user>
+
+        <my-user
+        @sendEvent="rcvMsg"
+        uname="michael">
+        </my-user>
+      </div>
+    `
+  })
+
+  new Vue({
+    el: '#example',
+    data: {
+      msg: 'VueJS is Awesome'
+    }
+  })
+</script>
+
+
+</body>
+</html>

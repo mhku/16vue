@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="js/vue.js"></script>
+  <title>Title</title>
+</head>
+<body>
+<div id="example">
+  <ul v-if="list.length <= 10">
+    <li v-for="myValue in list">
+      {{myValue}}
+    </li>
+  </ul>
+  <button v-on:click="addToList">
+    clickMe
+  </button>
+</div>
+
+<script>
+  new Vue({
+    el: '#example',
+    data: {
+      msg: 'VueJS is Awesome',
+      list:[100,200,300]
+    },
+    methods:{
+      //向数组中插入一条随机的数据
+      addToList:function(){
+        var num =
+          Math.floor(Math.random()*100);
+
+        this.list.push(num);
+      }
+    }
+  })
+</script>
+
+
+</body>
+</html>

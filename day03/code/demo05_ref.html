@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="js/vue.js"></script>
+  <title>Title</title>
+</head>
+<body>
+<div id="example">
+  <my-cart></my-cart>
+</div>
+
+<script>
+  Vue.component('my-header',{
+    data:function(){
+      return {
+        isUserLogin:true
+      }
+    },
+    template:`
+      <div>
+        <h1>这是页头</h1>
+      </div>
+    `
+  })
+
+  Vue.component('my-cart',{
+    data:function(){
+      return {
+        uLogin:false
+      }
+    },
+    mounted:function(){
+        //测试
+      console.log(this.$refs.header);
+      this.uLogin =
+        this.$refs.header.isUserLogin
+    },
+    template:`
+      <div>
+        <my-header ref="header">
+        </my-header>
+        <ul v-if="uLogin">
+          <li>test01</li>
+          <li>test02</li>
+          <li>test03</li>
+        </ul>
+      </div>
+    `
+  })
+
+  new Vue({
+    el: '#example',
+    data: {
+      msg: 'VueJS is Awesome'
+    }
+  })
+</script>
+
+
+</body>
+</html>

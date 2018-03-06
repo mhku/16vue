@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="js/vue.js"></script>
+    <script src="js/vue-router.js"></script>
+</head>
+<body>
+<div id="example">
+    <router-view></router-view>
+</div>
+</body>
+<script>
+    var Check=Vue.component('check-component',{
+        data:function(){
+            return {}
+        },
+        methods:{
+            jump:function(){
+                this.$router.push("/myPay");
+            }
+        },
+        template:`
+            <div>
+                <h1>这是查看页面</h1>
+                <button @click="jump">支付</button>
+            </div>
+        `
+    })
+    var Pay=Vue.component('pay-component',{
+        template:`
+            <div>
+                <h1>这是支付页面</h1>
+            </div>
+        `
+    })
+    var Send=Vue.component('send-component',{
+        template:`
+            <div>
+                <h1>这是发货页面</h1>
+            </div>
+        `
+    })
+    var NotFound=Vue.component('not-found',{
+        template:`
+            <h1>404 page not found</h1>
+        `
+    })
+    const myRoutes=[
+        {path:"",component:Check},
+        {path:"/myCheck",component:Check},
+        {path:"/myPay",component:Pay},
+        {path:"/mySend",component:Send},
+        {path:"*",component:NotFound}
+    ]
+    const myRouter=new VueRouter({
+        routes:myRoutes
+    })
+    new Vue({
+        el: "#example",
+        router:myRouter,
+        data: {
+            msg: "hello"
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="js/vue.js"></script>
+    <script src="js/vue-router.js"></script>
+    <script src="js/vue-resource.js"></script>
+</head>
+<body>
+<div id="example">
+    <router-view></router-view>
+</div>
+</body>
+<script>
+    var Cart=Vue.component('cart',{
+        template:`
+            <div>
+                <h1>购物车页面</h1>
+                <router-link to=""></router-link>
+            </div>
+        `
+    })
+    var OrderConfirm=Vue.component('order-confirm',{
+        methods:{
+            jump:function(desPath){
+                this.$router.push(desPath);
+            }
+        },
+        template:`
+            <div>
+                <h1>订单确认页面</h1>
+                <button @click="jump('/fc')">首次确认</button>
+                <button @click="jump('/sc')">再次确认</button>
+                <router-view></router-view>
+            </div>
+        `
+    })
+    var FirstConfirm=Vue.component('first-confirm',{
+        template:`
+            <p>请确认当前的订单信息</p>
+        `
+    })
+    var SecondConfirm=Vue.component('second-confirm',{
+        template:`
+            <p>请再次确认当前的订单信息</p>
+        `
+    })
+    var NotFound=Vue.component('not-found',{
+        template:`
+            <div>
+                <h1>page is not defined</h1>
+            </div>
+        `
+    })
+    //配置路由词典
+    const myRoutes=[
+        {path:'',component:Cart},
+        {path:'/myCart',component:Cart},
+        {path:'/myOrder',component:OrderConfirm,children:[
+            {path:'',component:FirstConfirm},
+            {path:'/fc',component:FirstConfirm},
+            {path:'/sc',component:SecondConfirm},
+        ]},
+        {path:'*',component:NotFound}
+    ]
+    const myRouter=new VueRouter({
+        routes:myRoutes
+    })
+    new Vue({
+        el: "#example",
+        router:myRouter,
+        data: {
+            msg: "hello"
+        }
+    })
+</script>
+</html>

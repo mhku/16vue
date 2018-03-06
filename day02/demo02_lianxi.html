@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="js/vue.js"></script>
+  <title>Title</title>
+</head>
+<body>
+<div id="example">
+  <store-cart></store-cart>
+</div>
+
+<script>
+
+  Vue.component('my-header',{
+    template:`
+        <h1>这是购物车页面的标题</h1>
+      `
+  })
+
+  Vue.component('my-footer',{
+    template:`
+      <p> 这是购物车页面的页脚 </p>
+    `
+  })
+
+  Vue.component('my-list',{
+    template:`
+      <ul>
+        <li>MongoDB权威指南</li>
+        <li>Angular权威指南</li>
+        <li>VueJS权威指南</li>
+      </ul>
+    `
+  })
+
+  Vue.component('store-cart',{
+    template:`
+
+      <my-header></my-header>
+      <my-list></my-list>
+      <my-footer></my-footer>
+
+    `
+  })
+
+
+  new Vue({
+    el: '#example',
+    data: {
+      msg: 'VueJS is Awesome'
+    }
+  })
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="js/vue.js"></script>
+  <script src="js/vue-router.js"></script>
+  <title>Title</title>
+</head>
+<body>
+<div id="example">
+  <!--指定一个盛放代码片段的容器-->
+  <router-view></router-view>
+</div>
+
+<script>
+
+  var Login = Vue.component(
+    'login-component',
+    {
+      methods:{
+        handleClick:function(){
+          //跳转到注册页面
+          this.$router.push('/myRegister');
+        }
+      },
+      template:`
+        <div>
+          <h1>这是登录页面</h1>
+          <button @click="handleClick">
+              没有账号，去注册
+          </button>
+          <router-link to="/myRegister">
+            去注册
+          </router-link>
+        </div>
+      `
+    }
+  )
+  var Register = Vue.component('register-component',{
+    template:`
+      <h1>这是注册页面</h1>
+    `
+  })
+
+  //配置路由词典
+  const myRoutes = [
+    {path:'/myLogin',component:Login},
+    {path:'/myRegister',component:Register}
+  ];
+
+  const myRouter = new VueRouter(
+    {
+      routes:myRoutes
+    }
+  );
+
+  new Vue({
+    el: '#example',
+    router:myRouter,
+    data: {
+      msg: 'VueJS is Awesome'
+    }
+  })
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="js/vue.js"></script>
+  <title>Title</title>
+</head>
+<body>
+<div id="example">
+  <p>{{msg}}</p>
+
+  <my-button></my-button>
+
+  <my-header></my-header>
+
+  <my-cart></my-cart>
+</div>
+
+
+<script>
+// file->settings->languages->js->es6
+  Vue.component('my-cart',{
+    template:`<div>
+          <h2>这是购物车</h2>
+          <p>test</p>
+          <my-button></my-button>
+
+          </div>`
+  })
+
+  //创建一个全局组件
+  Vue.component('my-button',{
+    template:'<button>TestButton</button>'
+  });
+
+  new Vue({
+    el: '#example',
+    data: {
+      msg: 'VueJS is Awesome'
+    },
+    components: {
+      'my-header': {
+        template:'<h1>it is a header</h1>'
+      }
+    }
+  })
+</script>
+
+
+</body>
+</html>

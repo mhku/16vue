@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="js/vue.js"></script>
+  <title>Title</title>
+</head>
+<body>
+<div id="example">
+  <p>{{msg}}</p>
+  <h1>{{100 | currency(1)}}</h1>
+</div>
+
+<script>
+  //创建
+  //需求：如果在调用currency过滤器的时候，传递的参数是0，显示美元；是1，显示人民币
+  Vue.filter('currency',function(arg,arg1){
+    console.log(arg1,arg2);
+    //根据业务的要求，对数据采取处理措施
+    //最终一定要记得将处理的结果进行返回
+    if(arg1 == 0)
+    {
+      return '$'+arg;
+    }
+    else{
+      return '￥'+arg;
+    }
+
+  })
+
+
+
+  new Vue({
+    el: '#example',
+    data: {
+      msg: 'VueJS is Awesome'
+    }
+  })
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="js/vue.js"></script>
+  <script src="js/vue-router.js"></script>
+  <title>Title</title>
+</head>
+<body>
+
+<div id="example">
+
+  <router-view></router-view>
+
+</div>
+
+<script>
+  /*
+  * 创建一个SPA，有两个组件
+  * Cart/OrderConfirm,
+  * 而在OrderConfirm中需要嵌套两个组件
+  * 分别 FirstConfirm\SecondConfirm
+  * */
+
+  var Cart = Vue.component('cart',{
+    template:`
+      <div>
+          <h1>购物车页面</h1>
+          <router-link to="/myOC">
+            去结算
+          </router-link>
+      </div>
+    `
+  })
+
+  var OrderConfirm = Vue.component('order-confirm',{
+    methods:{
+      jump:function(desPath){
+        this.$router.push(desPath)
+      }
+    },
+    template:`
+      <div>
+          <h1>订单确认页面</h1>
+          <button @click="jump('/fc')">
+              首次确认
+          </button>
+          <button @click="jump('/sc')">
+              再次确认
+          </button>
+          <router-view></router-view>
+      </div>
+    `
+  })
+
+  var FirstConfirm = Vue.component('first-confirm',{
+    template:`<p>请确认当前的订单信息</p>`
+  })
+
+  var SecondConfirm = Vue.component('second-confirm',{
+    template:`<p>请再次确认当前的订单信息</p>`
+  })
+
+
+
+  //配置路由词典
+  const myRoutes = [
+    {path:'',component:Cart},
+    {path:'/myCart',component:Cart},
+    {
+      path:'/myOC',
+      component:OrderConfirm,
+      children:[
+        {path:'',component:FirstConfirm},
+        {
+          path:'/fc',
+          component:FirstConfirm
+        },
+        {
+          path:'/sc',
+          component:SecondConfirm
+        }
+      ]
+    }
+  ]
+
+  const myRouter = new VueRouter({
+    routes:myRoutes
+  })
+
+  new Vue({
+    router:myRouter,
+    el:'#example'
+  });
+</script>
+
+</body>
+</html>

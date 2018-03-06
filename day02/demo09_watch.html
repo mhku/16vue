@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="js/vue.js"></script>
+  <title>Title</title>
+</head>
+<body>
+<div id="example">
+  <test-component></test-component>
+</div>
+
+<script>
+
+  Vue.component('test-component',{
+    data:function(){
+      return {uName:''}
+    },
+    template:`
+        <input
+        type="text" v-model="uName"/>
+     `,
+    watch:{
+      uName:
+        function(newValue,oldValue){
+          console.log(this.uName);
+          console.log(arguments);
+      }
+    }
+  });
+
+  new Vue({
+    el: '#example',
+    data: {
+      msg: 'VueJS is Awesome'
+    }
+  })
+</script>
+
+
+</body>
+</html>

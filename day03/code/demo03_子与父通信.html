@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="js/vue.js"></script>
+  <title>Title</title>
+</head>
+<body>
+<div id="example">
+  <parent></parent>
+</div>
+
+<script>
+
+  Vue.component('parent',{
+    data:function(){
+      return {
+        myValue:''
+      }
+    },
+    methods:{
+      rcvMsg:function(msg){
+        console.log('接收到数据了'+msg);
+        this.myValue = msg;
+      }
+    },
+    template:`
+      <div>
+        <h1>这是父组件</h1>
+        <p>
+          {{"子组件传来的数据是"+myValue}}
+        </p>
+        <hr/>
+        <son @toFather="rcvMsg"></son>
+      </div>
+    `
+  })
+
+  Vue.component('son',{
+    methods:{
+      handleClick:function(){
+        //触发事件
+        this.$emit('toFather',123)
+      }
+    },
+    template:`
+      <div>
+        <h1>这是子组件</h1>
+        <button @click="handleClick">
+          发送给父组件
+        </button>
+      </div>
+    `
+  })
+
+  new Vue({
+    el: '#example',
+    data: {
+      msg: 'VueJS is Awesome'
+    }
+  })
+</script>
+
+
+</body>
+</html>

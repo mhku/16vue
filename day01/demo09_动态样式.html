@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="js/vue.js"></script>
+  <title>Title</title>
+  <style>
+    .myRed{
+      color:red
+    }
+  </style>
+</head>
+<body>
+<div id="example">
+  <h1 :class="{myRed:false}">this is a test</h1>
+  <p :style=
+       "{backgroundColor:myBGColor}">
+    {{msg}}
+  </p>
+  <button @click="changBGColor">
+    点击改变p背景色
+  </button>
+</div>
+
+<script>
+  new Vue({
+    el: '#example',
+    data: {
+      msg: 'VueJS is Awesome',
+      myBGColor:'#ff0000'
+    },
+    methods:{
+      changBGColor:function(){
+        //修改myBGColor这个变量
+        this.myBGColor = '#0000ff'
+      }
+    }
+  })
+</script>
+
+
+</body>
+</html>

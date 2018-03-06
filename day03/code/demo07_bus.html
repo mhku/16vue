@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="js/vue.js"></script>
+  <title>Title</title>
+</head>
+<body>
+<div id="example">
+  <xiong-da></xiong-da>
+  <xiong-er></xiong-er>
+</div>
+
+<script>
+
+  //创建一个Vue的实例 作为eventBus来去使用
+  var bus = new Vue();
+
+  //熊大（发送方 触发事件）
+  // --》
+  //熊二（接收方 绑定事件）
+
+  Vue.component('xiong-da',{
+      created:function(){
+        //绑定事件处理函数
+        bus.$on('toDa',function(msg){
+          console.log(
+            '熊二给熊大发的消息是'+msg);
+        })
+      },
+      methods:{
+        //定义一个方法，通知熊二
+        notifyEr:function(){
+          //触发事件
+          bus.$emit(
+            'toErEvent',
+            '快跑！光头强来了')
+        }
+      },
+      template:`
+        <div>
+          <h1>这是熊大</h1>
+          <button @click="notifyEr">
+            发现光头强
+          </button>
+        </div>
+      `
+  })
+
+  Vue.component('xiong-er',{
+    created:function(){
+      //通过js的方式绑定事件
+      bus.$on('toErEvent',function(msg){
+        console.log('熊二接收到事件了'+msg);
+      });
+    },
+    methods:{
+      replyXiongDa:function(){
+        //通过触发事件去传值
+        bus.$emit('toDa','怕啥!');
+      }
+    },
+    template:`
+        <div>
+          <h1>这是熊二</h1>
+          <button @click="replyXiongDa">
+              回复熊大
+          </button>
+        </div>
+      `
+  })
+
+  new Vue({
+    el: '#example',
+    data: {
+      msg: 'VueJS is Awesome'
+    }
+  })
+</script>
+
+
+</body>
+</html>

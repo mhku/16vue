@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="js/vue.js"></script>
+  <title>Title</title>
+</head>
+<body>
+
+<div id="example">
+  <ul>
+    <li v-for="tmp in list">
+      {{tmp}}
+    </li>
+  </ul>
+
+  <ul>
+    <li v-for="(value,index) in list">
+      <p>
+        {{'第'+index+"个元素是"+value}}
+      </p>
+    </li>
+  </ul>
+
+</div>
+
+<script>
+  new Vue({
+    el:'#example',
+    data:{
+      list:[100,200,300]
+    }
+  })
+</script>
+
+</body>
+</html>

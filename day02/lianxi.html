@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="js/vue.js"></script>
+  <title>Title</title>
+  <style>
+    .btnSelect{
+      background-color: blue;
+    }
+  </style>
+</head>
+<body>
+
+<div id="example">
+
+  <button
+    :disabled="nowPage == 1">
+    上一页
+  </button>
+  <!--
+    btnSelect这个样式类是否要添加到button，取决于用户所选择的页码和当前pageList遍历时的页码是否一致
+  -->
+  <button
+    @click="choosePage(tmp)"
+    :class
+      ="{btnSelect:nowPage == tmp}"
+    v-for="tmp in pageList">
+    {{tmp}}
+  </button>
+  <button
+    :disabled="nowPage == 5">下一页</button>
+
+</div>
+
+<script>
+  new Vue({
+    el:'#example',
+    data:{
+      pageList:[1,2,3,4,5],
+      nowPage:1
+    },
+    methods:{
+      choosePage:function(page){
+        //将nowPage修改为当前所选中的页码
+        this.nowPage = page;
+      }
+    }
+  });
+</script>
+
+
+</body>
+</html>

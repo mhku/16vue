@@ -1,0 +1,170 @@
+
+
+删除功能：
+①todolist在调用todoitem时候，通过content和myIndex将内容和下标传递给了todoitem
+②在调用todoitem时 绑定一个事件处理函数
+在事件处理函数中，去接收传递来的下标，并从数组中删除指定下标的元素
+③在todoitem中 点击delete按钮时，触发自定义事件
+并将当前是第一个(this.myIndex)传递给todolist
+
+
+一、Vue中路由的使用
+
+单页面应用程序(single page application):在一个完整的工程，可以只有一个完整的页面，其余的都是代码片段。
+
+
+SPA的基本工作原理：
+	①加载完整的页面
+	②解析地址栏中的页面地址和路由地址
+	③根据配置好的路由词典，找到该路由地址所对应的要加载的真实的页面
+	④发起ajax请求，将真实的页面从服务器加载过来
+	⑤将页面加载到指定的容器中
+
+
+1、路由的基本用法
+任何一个框架的路由模块：建立起url和页面之间的映射关系
+
+实现一个SPA基本思路：
+	①指定一个容器
+		<router-view></router-view>
+	②创建代码片段
+		创建组件
+		var Login = Vue.component('login-component',{
+			template:`<h1>登录页面</h1>`
+		})
+	③配置路由词典
+		new Vue({
+			router:new VueRouter({
+				routes:[
+					{path:'/myLogin',component:Login}
+				]
+			})
+		})
+	④测试
+	测试路由词典中 路由地址能否按照需求 正确加载所需要用到的页面
+
+
+2、页面跳转的方式
+	①可以直接修改地址栏（内部测试）
+	②可以通过js
+	 this.$router.push('目的地的路由地址')
+	③routerLink
+	 <router-link to="目的地的路由地址"></router-link>
+
+
+练习：demo02_lianxi.html
+	login  在登录页面 放上一个routerLink 跳转到Main页面
+	main  在main页面中，放上一个按钮（退出登录），点击跳转到login
+
+
+3、跳转的同时如何进行传参
+
+扩充：路由匹配规则
+	①将路由地址为空的放在路由词典的最上边
+		{path:'',component:Login}
+	②具体的路由地址 对应 具体的组件
+		{path:'/login',component:Login}
+	③异常处理，如果当前页面中的路由地址 在路由词典中没有匹配到，作为异常处理
+		{path：'*'....}
+
+参数的传递：
+	①发送
+		http://****.com/#/main/zhangsan
+		this.$router.push('/main/zhangsan')
+	②接收
+		配置接收方自身的路由地址
+		const myRoutes = [
+			{path:'/main/:uname',component:Main}
+		]
+		this.$route.params.uname
+
+	综合练习:demo04.html（15:10 - 15:30）
+		通过Vue和VueRouter来实现一个SPA，这个SPA中有3个页面：
+		Check 商品的查看页面 btn 点击跳转pay（同时将价格 100发送）
+		Pay   商品的支付页面 接收参数 显示在h1 ，routerLink点击时 跳转到send
+		Send  商品的发货页面 btn 点击跳转到Check
+
+		①SPA
+		②跳转
+		③传参
+
+			
+4、嵌套路由
+ 嵌套路由 在一个SPA中的某一个路由地址所对应的组件中，还可以接着再嵌套其它的组件。
+
+	步骤1：先到准备嵌套组件的组件中 指定一个容器
+	步骤2：给组件在配置路由词典，指定一个children
+
+	举例：
+	假设A组件 需要嵌套B组件、C组件
+	①给A组件的模板 指定一个router-view
+	② {
+			path:'',
+			component:A,
+			children:[
+				{path:'/b',component:B}
+			]
+		}
+
+
+扩充：
+	如果想要实现页面的前进或者后退？
+
+		this.$router.go(-1);
+
+
+
+Vue的基础知识（指令、过滤器、组件）
+Vue中组件间通信
+Vue中创建SPA（基本步骤、跳转、传参、嵌套）
+Vue中与服务器端通信的方式
+
+5、与服务器端通信
+
+5.1 具体方式
+	①引入vue-resource.js
+	②发请求
+		this.$http
+			.get('url')
+			.then((response)=>{
+				//response.data
+			})
+	
+5.2 fake online api
+	jsonplaceholder.typicode.com/users
+ 
+
+6、搭建.vue结尾的文件运行的一个环境
+	①tpls.zip
+	②将压缩包考到指定的目录
+	C:\xampp\htdocs\13_FRAMEWORK\vue\project
+	③解压缩到当前文件夹
+	④进入到tpls文件夹
+	⑤安装依赖
+		shift+右键--》打开终端
+	 npm install
+	⑥启动环境
+		npm start
+
+
+每日一练：
+	路由嵌套
+	创建两个组件，购物车，订单确认
+	在订单确认的组件中 能够嵌套首次确认、再次确认组件
+
+	①引入vue-router.js
+	②指定router-view
+	③创建Cart OrderConfirm
+	④配置路由词典
+	⑤找到OrderConfirm 指定容器 router-view
+	⑥创建要用到的组件 firstConfirm\secondConfirm
+	⑦配置上述两个组件的路由地址
+
+
+
+
+
+
+
+
+

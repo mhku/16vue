@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="js/vue.js"></script>
+  <title>Title</title>
+</head>
+<body>
+<div id="example">
+  <p>{{count}}</p>
+  <button
+    v-on:click="handleClick()">clickMe</button>
+  <button
+    @click="handleClick()">clickMe</button>
+</div>
+
+<script>
+
+  new Vue({
+    el: '#example',
+    data: {
+      msg: 'VueJS is Awesome',
+      count:0
+    },
+    methods:{
+      handleClick:function(){
+        //alert('btn is clicked');
+        //在按钮按下时，count自增操作
+        this.count++;
+      }
+    }
+  })
+</script>
+
+
+</body>
+</html>

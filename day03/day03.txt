@@ -1,0 +1,123 @@
+安排：
+	Vue中组件之间的通信的方式
+	Vue中路由模块的使用
+
+掌握的重点：
+	组件间通信+路由模块+网络请求模块
+
+一、组件间通信
+	
+	1、父组件 与 子组件 通信 (props down)
+		①传值
+			<son uname=“zhangsan”></son>
+		②接受
+			Vue.component('son',{
+				props:['uname','tips'],
+				template:'<div>
+						<p>{{uname}}</p>
+						<input type='text' :placeholder="tips"/>
+					</div>
+					'
+			})
+		练习：demo02_lianxi.html
+		
+		三个组件：
+		 my-input
+		 my-button
+		 my-login
+
+	
+	2、子组件 与 父组件 通信 (events up)
+		确认：子组件 把数据 发给父组件
+		①绑定事件
+			1.1
+				在父组件中 定义一个方法，用来给子组件指定事件的处理函数
+				rcvMsg:function(msg){
+					//msg就是通过事件所传递来的值
+				}
+			1.2
+				在父组件中调用子组件时，绑定事件
+				<son @customEvent="rcvMsg"></son>
+		②触发事件
+			子组件的内部 去触发事件
+			this.$emit('customEvent',123)
+
+		综合练习：
+			my-user:用户名 输入框 按钮
+			my-chatroom：无序列表+ my-user +my-user
+
+	3、ref 可以让父组件主动的到子组件中取值
+		①指定引用的名称
+			<son ref="mySon"></son>
+		②根据引用的名称找到组件的实例(对象)
+			this.$refs.mySon
+		注意事项：不要试图通过ref属性去传值，ref在使用的过程中是一个关键词，旨在指定一个引用的名称
+
+	4、$parent
+		子组件可以通过this.$parent得到父组件的实例对象
+
+		总结：在父子相互通信的过程的
+		父-》子
+			props down
+			this.$parent
+		子-》父
+			events up 
+			this.$refs.mySon
+
+	5、兄弟组件之间的通信
+			var bus = new Vue();
+			bus.$on('eventName',function(msg){});
+			bus.$emit('eventName',数据)
+
+			练习：
+			在当前案例的基础上，给熊二组件添加一个按钮，点击按钮，告诉熊大：‘怕啥！’
+
+			熊二（发送 触发事件） -》 熊大（接收 绑定）
+
+二、扩展
+	为了让Vue组件化的开发方式 更容易维护和开发，有多种方式来创建组件
+	①全局组件
+		Vue.component('test',{
+			template:`<h1></h1>`
+		})
+	②局部组件
+		new Vue({
+			components:{
+				my-component:{
+					template:''
+				}
+			}
+		})
+	③通过模板指定
+	 <script type='text/x-template' id="myContent">
+	 
+	 </script>
+	
+		Vue.component('my-component',{
+			template:'#myContent'
+		})
+	④单文件组件
+		以.vue结尾的文件
+		一个vue结尾的文件就是一个组件，而这个文件中是通过template去指定模板内容，通过script去指定业务逻辑，通过style指定样式
+
+
+三、综合练习
+	todobox
+	①完成组件的创建和使用
+	②add
+		功能1：
+		在todoinput中的按钮单击时，将输入框中的内容 传递给todolist（兄弟组件通信）；
+		功能2：
+		todolist将接受到数据 传递给 todoitem（父与子通信）		
+		步骤1：todoinput
+			输入框 v-model
+			按钮 bus.$emit
+		步骤2：todolist
+			bus.$on
+			定义一个数组 保存通过事件所传递来的数据
+			v-for
+		步骤3：
+			通过属性传值todoitem
+	
+	③delete
+		

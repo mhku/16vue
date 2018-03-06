@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="js/vue.js"></script>
+</head>
+<body>
+
+
+<div id="container">
+  <p>{{num1+num2}}</p>
+  <h1>{{list[0]}}</h1>
+  <p>{{"当前汽车的品牌是"+car.brand}}</p>
+</div>
+
+<script>
+  new Vue({
+    el:'#container',
+    data:{
+      num1:10,
+      num2:20,
+      list:[100,200,300],
+      car:{price:10,brand:'volvo'}
+    }
+  });
+</script>
+
+
+</body>
+</html>

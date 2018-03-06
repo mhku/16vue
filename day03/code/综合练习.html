@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="js/vue.js"></script>
+  <title>Title</title>
+</head>
+<body>
+
+<div id="example">
+  <to-do-box></to-do-box>
+</div>
+
+<script>
+  //创建一个事件总线，用来完成某个组件对于事件的绑定和触发
+  var bus = new Vue();
+
+  //todoitem
+  Vue.component('to-do-item',{
+    template:`
+      <li>
+        <button>delete</button>
+        <span>待做事项</span>
+      </li>
+    `
+  });
+
+  Vue.component('to-do-list',{
+      created:function(){
+        //绑定一个自定义的事件 处理函数
+        bus.$on('addEvent',function(msg){
+            console.log('todolist收到的todoinput传来的数据是'+msg);
+        })
+      },
+      template:`
+      <ul>
+        <to-do-item></to-do-item>
+        <to-do-item></to-do-item>
+      </ul>
+      `
+  })
+
+  Vue.component('to-do-input',{
+    data:function(){
+      return {
+        uInput:''
+      }
+    },
+    methods:{
+      handleClick:function(){
+        //将input中用户输入的信息发给todolist
+        bus.$emit('addEvent',this.uInput)
+      }
+    },
+    template:`
+      <div>
+        <h2>待做事项列表</h2>
+        <input v-model="uInput"
+        type="text" placeholder="请输入"/>
+        <button @click="handleClick">add</button>
+      </div>
+    `
+  })
+
+  Vue.component('to-do-box',{
+    template:`
+    <div>
+      <to-do-input></to-do-input>
+      <to-do-list></to-do-list>
+    </div>
+    `
+  })
+
+
+
+
+
+  new Vue({
+    el:'#example',
+    components:{
+      'my-header':{
+        template:'<h1></h1>'
+      }
+    }
+  })
+
+
+</script>
+
+
+</body>
+</html>

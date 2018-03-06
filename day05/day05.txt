@@ -1,0 +1,142 @@
+
+
+include 包含 引入
+exclude 从当中移除
+
+npm node package manager 包管理器
+
+举例：
+	brew/apt-get/...
+	brew install ***
+
+0、创建组件类的方式
+	①  全局组件
+	Vue.component('',{
+		template:'<h1></h1>'
+	})
+	② 局部组件
+	new Vue({
+			components:{
+				my-header:{
+					template:''
+				}
+			}
+	})
+	③ 指定模板内容
+	<script type='text/x-template' id='myTPL'>
+		 <h1> it is a header</h1>
+	</script>
+
+	Vue.component('',{
+	 template:'#myTPL'
+	})
+
+	④.vue结尾的文件 ---》 单文件组件
+	.vue结尾的文件 不能直接被浏览器识别
+
+1、npm start之后启动了页面，显示内容？？
+
+	①找package.json,
+		执行scripts中的node build/dev-server.js
+	②加载index.html
+	③加载main.js，
+		指定模板是App.Vue导出的组件类
+		指定一个路由词典(router/index.js去配置)，而路由词典是默认要加载Hello.vue
+	④而在App.vue中是有一个router-view
+
+2、 模板项目的目录介绍
+	①build 包含webpack、开发服务器等相关的设置
+	②config 针对项目做些配置
+	③node_modules 根据package.json中的dependencies和 devDependencies安装所有的依赖
+	④src 
+		assets 存储资源文件 css、js
+		components 放组件
+		router index.js 配置路由词典
+		App.vue 根组件 (router-view)
+		main.js 创建一个Vue的示例，同时指定路由模块、要加载的页面
+	⑤package.json
+		记录工程信息，比如工程名称、依赖。。。
+
+3、demo list detail
+	①创建两个组件
+	②配置路由词典
+	③测试
+	④实现跳转
+	⑤实现传参
+		list --index--> detail
+		接收 （配置接收方的路由地址）
+		发送
+
+	在spa中 有一个组件 MyHeader.vue 渲染一个h1标签；希望在List组件中 能够调用MyHeader.vue
+
+4、单文件组件如何形成复合组件？
+	方式1：作为全局组件去调用
+		①创建.vue结尾的组件
+			MyHeader.vue
+		②到router/index.js中，通过Vue.component 真正的全局组件
+			import MyHeader from '@/components/MyHeader',
+			Vue.component('my-header',MyHeader)
+
+		③作为标签去调用组件
+				<my-header></my-header>
+  方式2：作为局部组件去调用
+		①创建组件
+			MyFooter.vue
+		②在需要调用该组件的地方，创建成一个局部组件
+			List.vue
+
+			import MyFooter from '@/components/MyFooter'
+
+			export default{
+				components:{
+					myfooter:MyFooter
+				}
+			}
+		③调用组件
+		 <myfooter></myfooter>
+
+	练习：（14:40 - 14:55）
+	在src/components创建
+	ToDoBox.vue
+	ToDoList.vue
+	ToDoInput.vue
+	ToDoItem.vue
+
+	实现静态页面
+
+5、如何在Vue的项目中使用第三方的样式类文件？
+	①在src/assets,先去创建一个css的文件夹
+	②将需要用到的样式类文件拷贝到css文件夹中
+	③在main.js,直接引入
+	import './assets/css/bootstrap.css'
+
+
+
+项目安排：
+
+目标：使用Vue来实现学子商城的后台管理界面
+架构: SPA 
+	login登录
+	main 主页面 ，能够嵌套charts组件、productList组件、userList组件
+要求：
+	①默认加载login
+	②进入到main页面，默认加载charts组件
+步骤:(16:40 - 17:10)
+	1、创建要用到的各个组件
+	2、配置路由词典
+	3、具体实现login
+			①在assets目录下 去创建js/css/fonts文件夹，引入对应的资源文件
+			 （js文件只需要引入jquery jquery-flot）
+			②在main.js 
+			import方式引入到工程，比如
+			import './assets/css/bootstrap.css'
+			③找到admin/login.html
+			将需要用到的模板内容 拷贝Login.vue的template
+			④实现登录功能（需要与服务器端通信）
+	4、具体实现charts
+	...
+
+
+	跨域：
+	 init.php
+		header('Access-Controll-Allow-Origin:*');

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="js/vue.js"></script>
+  <title>Title</title>
+</head>
+<body>
+<div id="example">
+  <p>{{msg}}</p>
+  <!--
+    v-if决定是否挂载到DOM，v-show通过display决定是否显示
+  -->
+  <h1 v-if="isMember">仅会员可见</h1>
+  <h1 v-show="isMember">仅会员可见</h1>
+  <div v-html="msg">
+    <p>hello paragraph</p>
+  </div>
+</div>
+
+<script>
+  new Vue({
+    el: '#example',
+    data: {
+      msg: 'VueJS is Awesome',
+      isMember:false
+    }
+  })
+</script>
+
+
+</body>
+</html>

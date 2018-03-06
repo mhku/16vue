@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="js/vue.js"></script>
+  <title>Title</title>
+</head>
+<body>
+<div id="example">
+  <p v-change-bg="myColor">{{msg}}</p>
+</div>
+
+<script>
+
+  //创建指令
+  Vue.directive('change-bg',{
+    bind:function(el,binding){
+      console.log(
+        '指令被调用了',
+        binding.value);
+
+      el.style.backgroundColor
+          = binding.value;
+
+    }
+  })
+
+  new Vue({
+    el: '#example',
+    data: {
+      msg: 'VueJS is Awesome',
+      myColor:'#ff0000'
+    }
+  })
+</script>
+
+
+</body>
+</html>

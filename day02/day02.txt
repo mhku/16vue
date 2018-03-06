@@ -1,0 +1,189 @@
+
+	Vue组件
+	Vue自定义指令
+	Vue自定义过滤器
+
+一、Vue组件
+1、组件
+	组件就是可被反复使用的，带有特定功能的视图
+
+	将需要经常的视图，比如登录窗口、页头、页脚封装成组件，然后方便复用，提高代码的可读性，降低了代码的维护成本，降低了耦合度
+
+	1.1 复合组件
+		复合组件就是一个组件，只不过复合组件可以有其它的组件构成
+
+		新建一个demo02_lianxi.html
+		练习：my-cart my-header my-footer my-list
+		my-header 渲染一个h1
+		my-footer 渲染一个p
+		my-list 渲染一个由3个元素构成的无序列表
+		最后放到my-cart中，将my-cart作为跟组件渲染出来。
+
+二、Vue中自定义指令
+
+	1、创建和使用
+		创建指令
+			Vue.directive('change',{
+				//调用指令会自定执行，并只调用一次
+				bind:function(el,binding){},
+				//当模板的数据发生变化，会自动执行
+				update:function(el,binding){},
+				//解除绑定会自定执行，并只调用一次
+				unbind:function(){}
+			})
+		使用指令：
+			v-change
+		
+		注意事项：
+			Vue中的指令的命名 烤串式命名方式，在调用指令时，要记得加上v-
+
+	2、自定义指令时，完成参数的传递和接收
+		在自定义指令时，指定指令的钩子函数（处理函数），经常用到的是bind/update/unbind
+
+		处理函数是有参数的，第一个参数是el，指的是调用指令的元素；第二参数是binding，是一个对象 ，包含一个value属性，记录的是传过来的参数
+
+		举例：
+			传递参数：
+			<h1 v-change="'#ff0000'"></h1>
+			接收参数：
+			el.style.backgroundColor = binding.value
+
+		练习：
+			demo04_lianxi.html
+		要求创建一个自定义的指令，任何调用该指令的元素背景色，都会变成通过参数，所传递的颜色
+
+		基本步骤：
+			1、完成指令的创建和使用
+			2、完成参数的发送和接收
+			3、将接受到的颜色 设置为 当前元素的背景色
+
+三、Vue中的过滤器
+
+	一个优秀的基于Vue的过滤器的项目：
+	https://github.com/wy-ei/vue-filter
+	
+	过滤器：可以将数据进行筛选、过滤、格式化的操作，把数据更好的呈现给用户
+
+	Vue中1.*版本 是支持内置的过滤器
+	Vue的2.*，自定义过滤器。
+
+	1、过滤器创建、使用
+
+	过滤器的本质就是一个带有参数、带有返回值的方法
+
+	创建：
+		//第一个参数用来指定过滤器的名字
+		//第二个参数指定过滤器要执行的操作，是一个方法，方法的参数是通过管道所传递来的数据
+		Vue.filter('过滤器名称',function(arg){
+			return arg处理后的结果
+		})
+
+	使用：
+		支持多重过滤
+		<any>
+		{{表达式 | 自定义过滤器(参数1，参数2) | 过滤器 }}
+		</any>
+
+	2、过滤器如何传参
+		①过滤器在创建时，让方法支持能够接受参数
+		Vue.filter(
+			'myCurrency',
+			function(arg,arg1,arg2，arg3){
+				return ‘处理后的结果’
+			}
+		)
+		②调用过滤器时发送参数
+		<any>{{表达式 | myCurrency(100,200,300)}}</any>
+
+
+	练习：demo06_lianxi.html
+	创建一个过滤器，将服务器端返回的
+	性别信息0 女/1男，
+	如果过滤器指定参数为en,返回boy\girl,
+	如果指定参数为zh,转换为男、女
+
+	0 | sex('en') --》girl
+	1 | sex('en') --》boy
+	0 | sex('zh') --》女
+	1 | sex('zh') --》男
+
+四、Vue中的组件生命周期处理函数
+	分为4个阶段：
+		create : 事件绑定、数据的初始化
+			beforeCreate
+			created
+		mount：元素挂载前后
+			beforeMount
+			mounted
+		update ：当数据发生变化
+			beforeUpdate
+			updated
+		destroy：收尾工作
+			beforeDestroy
+			destroyed
+
+	练习：demo08_lianxi.html
+		创建一个组件，在组件中渲染一个h1。
+		在组件挂载完毕之后，希望启动一个定时器来实现h1标签的透明度的渐变效果
+		0~1 0~1 ...
+
+		①创建和调用组件 
+		②mounted
+		③ h1 style opacity 
+		
+	Vue.component('my-com',{
+		生命周期的处理函数:function(){},
+		data:function(){return {}},
+		methods:{handleClick:function(){}},
+		template:`<h1></h1>`
+	});
+
+
+五、常见属性
+	1、watch 监听属性
+		①先给要监听的变量 初始化
+			Vue.component('test',{
+				data:function(){
+					return {uName:''}
+				}
+			})
+		②表单元素在双向数据绑定，绑定到该变量
+			<select v-model="uName"></select>
+		③添加监听属性
+			Vue.component('test',{
+				data:function(){
+					return {uName:'',uAgree:false}
+				}，
+				template:`
+						<form>
+							<select v-model="uName"></select>
+							<input type="checkbox" v-model="uAgree"/>
+						</form>
+				`,
+				watch:{
+					uName:function(newValue,oldValue){},
+					uAgree:function(newValue,oldValue){}
+				}
+			})
+	2、computed 计算属性
+		计算属性和methods中定义的方法，执行的结果确实是一样的，但是计算属性是根据依赖进行缓存的。
+
+		在Vue的代码编写过程中，设计到复杂的业务逻辑 建议放在计算属性computed，而不是放在methods
+		//创建计算属性
+		new Vue({
+			computed:{
+				myComputed:function(){
+					return 变量
+				}
+			}
+		})
+		//使用计算属性
+		<p>{{myComputed}}</p>
+
+
+每日一练：
+	
+
+
+
+

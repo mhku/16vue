@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="js/vue.js"></script>
+  <title>Title</title>
+</head>
+<body>
+<div id="example">
+  <!--属性绑定：将变量中的值 取出来 给 指定的属性-->
+  <a v-bind:href="myUrl"> test </a>
+  <!--指令的简写方式-->
+  <a :href="myUrl"> test </a>
+
+  <img v-bind:src="'img/'+imgName" alt=""/>
+</div>
+
+<script>
+  new Vue({
+    el: '#example',
+    data: {
+      msg: 'VueJS is Awesome',
+      myUrl:'http://www.tedu.cn',
+      imgName:'1.jpg'
+    }
+  })
+</script>
+
+
+</body>
+</html>

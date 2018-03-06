@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="js/vue.js"></script>
+  <title>Title</title>
+</head>
+<body>
+<div id="example">
+  <p
+    v-if="count<105"
+    v-change="count">{{msg}}</p>
+  <button @click="handleClick">
+    clickMe
+  </button>
+</div>
+<script>
+  //创建一个自定义的指令
+  //钩子函数 hook function
+  Vue.directive('change',{
+    //bind方法就是指令中的钩子函数，会在
+    //指令被调用的时候，自动触发
+      bind:function(el,binding){
+        console.log(arguments);
+        console.log('in bind...');
+        el.innerHTML = "内容被指令修改了"
+        console.log(binding.value);
+      },
+      update:function(el,binding){
+        console.log('in update function');
+        console.log(binding);
+      },
+      unbind:function(){
+        console.log('in unbind function');
+      }
+  });
+
+
+  new Vue({
+    el: '#example',
+    data: {
+      msg: 'VueJS is Awesome',
+      count:100
+    },
+    methods:{
+      handleClick:function(){
+        this.count++;
+      }
+    }
+  })
+</script>
+
+
+</body>
+</html>

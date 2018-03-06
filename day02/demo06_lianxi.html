@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="js/vue.js"></script>
+  <title>Title</title>
+</head>
+<body>
+<div id="example">
+    <!--使用-->
+    <h1>{{0 | sex('zh')}}</h1>
+    <h1>{{0 | sex('en')}}</h1>
+    <h1>{{1 | sex('zh')}}</h1>
+    <h1>{{1 | sex('en')}}</h1>
+</div>
+
+<script>
+
+  //创建过滤器
+  Vue.filter('sex',function(arg,arg1){
+    console.log(arg,arg1);
+    //根据arg是0还是1，根据arg1是zh还是en，返回boy/girl/男/女
+    if(arg == 0)
+    {
+      if(arg1 == 'zh'){
+        return '女'
+      }
+      else{
+        return 'girl'
+      }
+    }
+    else
+    {
+      if(arg1 == 'zh'){
+        return '男'
+      }
+      else{
+        return 'boy'
+      }
+    }
+  });
+
+  new Vue({
+    el: '#example',
+    data: {
+      msg: 'VueJS is Awesome'
+    }
+  })
+</script>
+
+
+</body>
+</html>

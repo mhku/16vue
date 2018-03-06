@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="js/vue.js"></script>
+  <title>Title</title>
+</head>
+<body>
+<div id="example">
+  <parent></parent>
+</div>
+
+<script>
+  Vue.component('parent',{
+    data:function(){
+      return {
+        myTreasure:'清朝年间的马桶'
+      }
+    },
+    template:`
+      <div>
+        <h1>这是父组件</h1>
+        <hr/>
+        <son></son>
+      </div>
+    `
+  })
+  Vue.component('son',{
+    mounted:function(){
+      console.log(
+        this.$parent.myTreasure);
+    },
+    template:`
+      <div>
+        <h1>这是子组件</h1>
+      </div>
+    `
+  })
+
+  new Vue({
+    el: '#example',
+    data: {
+      msg: 'VueJS is Awesome'
+    }
+  })
+</script>
+
+
+</body>
+</html>

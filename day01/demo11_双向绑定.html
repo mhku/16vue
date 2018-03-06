@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="js/vue.js"></script>
+  <title>Title</title>
+</head>
+<body>
+<div id="example">
+  <!--
+    注意：双向绑定只能用在表单元素中！
+    方向1：从数据绑定到视图
+    方向2：将视图中用户操作的结果绑定到数据
+  -->
+  <p>{{msg}}</p>
+  <input type="text" v-model="uname"/>
+  <h1>{{uname}}</h1>
+
+  <input type="checkbox"
+         v-model="isUserAgree"/> 是否同意
+  <br/>
+  <button :disabled="!isUserAgree">
+    注册
+  </button>
+  <br>
+  <input type="text"
+         v-model.number="num1"/>
+  <br>
+  <input type="text"
+         v-model.number="num2"/>
+  <br>
+  <button @click="addSum">求和</button>
+
+</div>
+
+<script>
+  new Vue({
+    el: '#example',
+    data: {
+      msg: 'VueJS is Awesome',
+      uname:'zhangsan',
+      isUserAgree:false,
+      num1:0,
+      num2:0
+    },
+    methods:{
+      addSum:function(){
+        var result = this.num1+this.num2;
+        console.log(result);
+      }
+    }
+  })
+</script>
+
+
+</body>
+</html>

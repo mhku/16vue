@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="js/vue.js"></script>
+  <title>Title</title>
+</head>
+<body>
+
+<div id="example">
+
+  <table>
+    <thead>
+    <tr>
+      <th>性别</th>
+      <th>年龄</th>
+      <th>成绩</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>{{stuList[0].sex}}</td>
+      <td>{{stuList[0].age}}</td>
+      <td>{{stuList[0].score}}</td>
+    </tr>
+    <tr>
+      <td>{{stuList[1].sex}}</td>
+      <td>{{stuList[1].age}}</td>
+      <td>{{stuList[1].score}}</td>
+    </tr>
+    <tr>
+      <td>{{stuList[2].sex}}</td>
+      <td>{{stuList[2].age}}</td>
+      <td>{{stuList[2].score}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<script>
+    new Vue({
+      el:'#example',
+      data:{
+        stuList:[
+          {
+            sex:'female',
+            age:18,
+            score:80
+          },
+          {sex:'female',age:22,score:83},
+          {sex:'female',age:20,score:82}
+        ]
+      }
+    })
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="js/vue.js"></script>
+  <title>Title</title>
+</head>
+<body>
+<div id="example">
+  <test-component></test-component>
+</div>
+
+<script
+  id="myContent"
+  type="text/x-template">
+  <div>
+    <p> it is a paragraph </p>
+    <h1> it is a header </h1>
+  </div>
+</script>
+
+<script>
+
+  Vue.component('test-component',{
+    template:'#myContent'
+  })
+
+  new Vue({
+    el: '#example',
+    data: {
+      msg: 'VueJS is Awesome'
+    }
+  })
+</script>
+
+
+</body>
+</html>

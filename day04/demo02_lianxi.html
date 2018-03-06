@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="js/vue.js"></script>
+  <script src="js/vue-router.js"></script>
+  <title>Title</title>
+</head>
+<body>
+<div id="example">
+  <!--指定一个容器-->
+  <router-view></router-view>
+</div>
+
+<script>
+
+  var Login = Vue.component('login-component',{
+      template:`
+        <div>
+          <h1>这是登录页面</h1>
+          <router-link to="/myMain">
+            登录到主页面
+          </router-link>
+        </div>
+      `
+  })
+
+  var Main = Vue.component('main-component',{
+    methods:{
+      logout:function(){
+        this.$router.push('/myLogin')
+      }
+    },
+    template:`
+      <div>
+        <h1>这是主页面</h1>
+        <button @click="logout">退出登录</button>
+      </div>
+    `
+  })
+
+  const myRoutes = [
+    {path:'/myLogin',component:Login},
+    {path:'/myMain',component:Main}
+  ]
+
+  const myRouter = new VueRouter({
+    routes:myRoutes
+  })
+
+
+  new Vue({
+    el: '#example',
+    router:myRouter,
+    data: {
+      msg: 'VueJS is Awesome'
+    }
+  })
+</script>
+
+
+</body>
+</html>

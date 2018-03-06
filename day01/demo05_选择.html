@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="js/vue.js"></script>
+  <title>Title</title>
+</head>
+<body>
+  <div id="example">
+    <p>{{msg}}</p>
+    <h1 v-if="count > 3">{{count}}</h1>
+
+    <!--
+      if(answer == 'a'){}
+      else if(answer == 'b'){}
+      else if(answer == 'c'){}
+      else if(answer == 'd'){}
+      else{}
+    -->
+    <p v-if="answer == 'a'">
+      A:正确答案是A
+    </p>
+    <p v-else-if="answer == 'b'">
+      B:正确答案是B
+    </p>
+    <p v-else-if="answer == 'c'">
+      C:正确答案是C
+    </p>
+    <p v-else-if="answer == 'd'">
+      D:正确答案是D
+    </p>
+    <p v-else>请输入正确答案</p>
+
+  </div>
+
+  <script>
+    new Vue({
+      el:'#example',
+      data:{
+        msg:'VueJS is Awesome',
+        count:4,
+        answer:'d'
+      }
+    })
+  </script>
+
+
+
+</body>
+</html>

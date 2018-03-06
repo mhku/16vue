@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="js/vue.js"></script>
+  <title>Title</title>
+</head>
+<body>
+<div id="example">
+  <!--调用my-list组件-->
+  <my-list></my-list>
+</div>
+
+<script>
+
+  Vue.component('my-list',{
+    template:`
+      <ol>
+          <my-item></my-item>
+          <my-item></my-item>
+          <my-item></my-item>
+      </ol>
+    `
+  })
+
+  Vue.component('my-item',{
+    template:`
+      <li> test </li>
+    `
+  })
+
+
+  new Vue({
+    el: '#example',
+    data: {
+      msg: 'VueJS is Awesome'
+    }
+  })
+</script>
+
+
+</body>
+</html>

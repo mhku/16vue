@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="js/vue.js"></script>
+  <title>Title</title>
+</head>
+<body>
+<div id="example">
+  <ul>
+    <li v-for="tmp in list">
+      <h2>{{myFunc()}}</h2>
+      <p>{{myComput}}</p>
+    </li>
+  </ul>
+</div>
+
+<script>
+  new Vue({
+    el: '#example',
+    data: {
+      msg: 'VueJS is Awesome',
+      list:[100,200,300],
+      count:0
+    },
+    mounted:function(){
+      setInterval(()=>{
+        this.list.push(Math.random()*100);
+      },500);
+
+    },
+    methods:{
+      myFunc:function(){
+        console.log('in func');
+        return this.count;
+      }
+    },
+    computed:{
+      myComput:function(){
+        console.log('in computed');
+        return this.count;
+      }
+    }
+  })
+</script>
+
+
+</body>
+</html>

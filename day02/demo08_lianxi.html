@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="js/vue.js"></script>
+  <title>Title</title>
+</head>
+<body>
+<div id="example">
+  <test-component></test-component>
+</div>
+
+<script>
+  //创建组件
+  Vue.component('test-component',{
+    mounted:function(){
+      console.log('组件挂载完毕');
+      //启动一个定时器，来周期性修改数值0 ~ 1
+      setInterval(()=>{
+        //修改一个变量
+        this.opacityValue+=0.1;
+        if(this.opacityValue > 1){
+          this.opacityValue = 0;
+        }
+      },500);
+    },
+    data:function(){
+      return {opacityValue:0}
+    },
+    template:`
+        <h1
+        :style="{opacity:opacityValue}">
+         it is a header
+        </h1>
+      `
+  })
+
+  new Vue({
+    el: '#example',
+    data: {
+      msg: 'VueJS is Awesome'
+    }
+  })
+</script>
+
+
+</body>
+</html>
